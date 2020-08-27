@@ -1,0 +1,355 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BKYL.Log</name>
+    </assembly>
+    <members>
+        <member name="T:BKYL.Log.Common.UtilHelper">
+            <summary>
+            帮助类
+            </summary>
+        </member>
+        <member name="M:BKYL.Log.Common.UtilHelper.filterLine(System.String)">
+            <summary>
+            过滤掉换行
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BKYL.Log.Common.UtilHelper.FormatSize(System.Double)">
+            <summary>
+            格式化容量大小
+            </summary>
+            <param name="size">容量（B）</param>
+            <returns>已格式化的容量</returns>
+        </member>
+        <member name="T:BKYL.Log.LogExtension">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BKYL.Log.LogExtension.GetGlobalLog(BKYL.Log.LogFactory.LogEnum)">
+            <summary>
+            获取全局日志对象 开箱即用
+            </summary>
+            <param name="log_type">日志类型</param>
+            <returns>日志对象可全局使用</returns>
+        </member>
+        <member name="T:BKYL.Log.LogFactory.ILog">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.ILog.Info(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Info级别日志
+            </summary>
+            <param name="message">记录的消息</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.ILog.Info(System.String,System.Boolean,System.Boolean,System.Object[])">
+            <summary>
+            Info级别日志
+            </summary>
+            <param name="format">包含格式项的字符串</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+            <param name="args">要格式化的参数</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.ILog.Info(System.String,System.Exception,System.Boolean,System.Boolean)">
+            <summary>
+            Info级别日志
+            </summary>
+            <param name="message">日志信息</param>
+            <param name="exception">异常对象</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.ILog.Debug(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Debug级别日志
+            </summary>
+            <param name="message">记录的消息</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.ILog.Debug(System.String,System.Boolean,System.Boolean,System.Object[])">
+            <summary>
+            Debug级别日志
+            </summary>
+            <param name="format">包含格式项的字符串</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+            <param name="args">要格式化的参数</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.ILog.Debug(System.String,System.Exception,System.Boolean,System.Boolean)">
+            <summary>
+            Debug级别日志
+            </summary>
+            <param name="message">日志信息</param>
+            <param name="exception">异常对象</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.ILog.Warn(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Warn级别日志
+            </summary>
+            <param name="message">记录的消息</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.ILog.Warn(System.String,System.Boolean,System.Boolean,System.Object[])">
+            <summary>
+            Warn级别日志
+            </summary>
+            <param name="format">包含格式项的字符串</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+            <param name="args">要格式化的参数</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.ILog.Warn(System.String,System.Exception,System.Boolean,System.Boolean)">
+            <summary>
+            Warn级别日志
+            </summary>
+            <param name="message">日志信息</param>
+            <param name="exception">异常对象</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.ILog.Error(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Error级别日志
+            </summary>
+            <param name="message">记录的消息</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.ILog.Error(System.String,System.Boolean,System.Boolean,System.Object[])">
+            <summary>
+            Error级别日志
+            </summary>
+            <param name="format">包含格式项的字符串</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+            <param name="args">要格式化的参数</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.ILog.Error(System.String,System.Exception,System.Boolean,System.Boolean)">
+            <summary>
+            Error级别日志
+            </summary>
+            <param name="message">日志信息</param>
+            <param name="exception">异常对象</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.ILog.Fatal(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Fatal级别日志
+            </summary>
+            <param name="message">记录的消息</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.ILog.Fatal(System.String,System.Boolean,System.Boolean,System.Object[])">
+            <summary>
+            Fatal级别日志
+            </summary>
+            <param name="format">包含格式项的字符串</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+            <param name="args">要格式化的参数</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.ILog.Fatal(System.String,System.Exception,System.Boolean,System.Boolean)">
+            <summary>
+            Fatal级别日志
+            </summary>
+            <param name="message">日志信息</param>
+            <param name="exception">异常对象</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+        </member>
+        <member name="T:BKYL.Log.LogFactory.ILogFactory">
+            <summary>
+            日志工厂接口
+            </summary>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.ILogFactory.GetLog(BKYL.Log.LogFactory.LogEnum)">
+            <summary>
+            日志接口
+            </summary>
+            <param name="type_log">name</param>
+            <returns>ILog</returns>
+        </member>
+        <member name="T:BKYL.Log.LogFactory.Imp.Log">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.Imp.Log.#ctor(NLog.ILogger,NLog.ILogger)">
+            <summary>
+            构造
+            </summary>
+            <param name="log"></param>
+            <param name="net_log"></param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.Imp.Log.Info(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Info级别日志
+            </summary>
+            <param name="message">记录的消息</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.Imp.Log.Info(System.String,System.Boolean,System.Boolean,System.Object[])">
+            <summary>
+            Info级别日志
+            </summary>
+            <param name="format">包含格式项的字符串</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+            <param name="args">要格式化的参数</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.Imp.Log.Info(System.String,System.Exception,System.Boolean,System.Boolean)">
+            <summary>
+            Info级别日志
+            </summary>
+            <param name="message">日志信息</param>
+            <param name="exception">异常对象</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.Imp.Log.Debug(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Debug级别日志
+            </summary>
+            <param name="message">记录的消息</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.Imp.Log.Debug(System.String,System.Boolean,System.Boolean,System.Object[])">
+            <summary>
+            Debug级别日志
+            </summary>
+            <param name="format">包含格式项的字符串</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+            <param name="args">要格式化的参数</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.Imp.Log.Debug(System.String,System.Exception,System.Boolean,System.Boolean)">
+            <summary>
+            Debug级别日志
+            </summary>
+            <param name="message">日志信息</param>
+            <param name="exception">异常对象</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.Imp.Log.Warn(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Warn级别日志
+            </summary>
+            <param name="message">记录的消息</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.Imp.Log.Warn(System.String,System.Boolean,System.Boolean,System.Object[])">
+            <summary>
+            Warn级别日志
+            </summary>
+            <param name="format">包含格式项的字符串</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+            <param name="args">要格式化的参数</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.Imp.Log.Warn(System.String,System.Exception,System.Boolean,System.Boolean)">
+            <summary>
+            Warn级别日志
+            </summary>
+            <param name="message">日志信息</param>
+            <param name="exception">异常对象</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.Imp.Log.Error(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Error级别日志
+            </summary>
+            <param name="message">记录的消息</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.Imp.Log.Error(System.String,System.Boolean,System.Boolean,System.Object[])">
+            <summary>
+            Error级别日志
+            </summary>
+            <param name="format">包含格式项的字符串</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+            <param name="args">要格式化的参数</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.Imp.Log.Error(System.String,System.Exception,System.Boolean,System.Boolean)">
+            <summary>
+            Error级别日志
+            </summary>
+            <param name="message">日志信息</param>
+            <param name="exception">异常对象</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.Imp.Log.Fatal(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Fatal级别日志
+            </summary>
+            <param name="message">记录的消息</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.Imp.Log.Fatal(System.String,System.Boolean,System.Boolean,System.Object[])">
+            <summary>
+            Fatal级别日志
+            </summary>
+            <param name="format">包含格式项的字符串</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+            <param name="args">要格式化的参数</param>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.Imp.Log.Fatal(System.String,System.Exception,System.Boolean,System.Boolean)">
+            <summary>
+            Fatal级别日志
+            </summary>
+            <param name="message">日志信息</param>
+            <param name="exception">异常对象</param>
+            <param name="is_warning">是否预警</param>
+            <param name="is_console">是否打印控制台</param>
+        </member>
+        <member name="T:BKYL.Log.LogFactory.Imp.LogFactory">
+            <summary>
+            工程实现类
+            </summary>
+        </member>
+        <member name="M:BKYL.Log.LogFactory.Imp.LogFactory.GetLog(BKYL.Log.LogFactory.LogEnum)">
+            <summary>
+            获取记录器
+            </summary>
+            <param name="type_log"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BKYL.Log.LogFactory.LogEnum">
+            <summary>
+            记录器
+            </summary>
+        </member>
+        <member name="F:BKYL.Log.LogFactory.LogEnum.web">
+            <summary>
+            Web项目日志
+            </summary>
+        </member>
+        <member name="F:BKYL.Log.LogFactory.LogEnum.console">
+            <summary>
+            控制台日志
+            </summary>
+        </member>
+    </members>
+</doc>
