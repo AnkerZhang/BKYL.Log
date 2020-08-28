@@ -17,7 +17,7 @@ namespace ServiceProgram.EntityModel.Target
         /// <summary>
         /// 磁盘占用使用率
         /// </summary>
-        public double driver_rate { get; set; }
+        public double disk_rate { get; set; }
     }
     
 }
