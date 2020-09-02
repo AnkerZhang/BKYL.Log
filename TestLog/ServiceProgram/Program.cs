@@ -1,12 +1,6 @@
-﻿using CZGL.SystemInfo.Linux;
-using Npgsql;
-using ServiceProgram.Environment;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using Dapper;
 using System.Linq;
-using System.Text.RegularExpressions;
 using ServiceProgram.EntityModel;
 using Microsoft.Extensions.Configuration;
 using ServiceProgram.Common;
