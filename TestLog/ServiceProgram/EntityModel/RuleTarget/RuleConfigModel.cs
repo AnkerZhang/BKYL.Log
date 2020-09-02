@@ -9,6 +9,7 @@ namespace ServiceProgram.EntityModel.RuleTarget
         public ServerTargetConfig server_node { get; set; }
         public MessageTargetConfig message_node { get; set; }
         public RedisTargetConfig redis_node { get; set; }
+        public PgTargetConfig pg_node { get; set; }
         public string notice { get; set; }
         public bool is_console { get; set; }
     }

@@ -13,16 +13,17 @@ namespace ServiceProgram.Common
         /// 日志对象
         /// </summary>
         private static ILogger _log = LogManager.GetCurrentClassLogger();
-        private static long pg_time = 0;
         private static long server_time = 0;
         private static long message_time = 0;
         private static long redis_time = 0;
-        //#时间#ServerName#NodelName#Json数据#预警邮箱#是否预警#预警内容#
+
+        private static Dictionary<string, long> pg_total_site = new Dictionary<string, long>(); //单位KB
+        //#时间#ServerName#NodelName#预留字段#Json数据#预警邮箱#是否预警#预警内容#
 
         /// <summary>
         /// 
         /// </summary>
-        public static void ServerTarget(DateTime time, ServerTargetModel target) 
+        public static void ServerTarget(DateTime time, ServerTargetModel target)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append($"{time.ToString("yyyy-MM-dd HH:mm:ss.ffff")}#");
@@ -33,6 +34,7 @@ namespace ServiceProgram.Common
                 node_name = ConfigModel.node_name;
             }
             sb.Append($"{node_name}#");
+            sb.Append($"_#");
             sb.Append($"{Newtonsoft.Json.JsonConvert.SerializeObject(target)}#");
             bool is_warning = false;
             string msg = null;
@@ -41,12 +43,12 @@ namespace ServiceProgram.Common
                 if (ConfigModel.rule_config.server_node.cpu_rate > 0 && ConfigModel.rule_config.server_node.cpu_rate <= target.cpu_rate)
                 {
                     is_warning = true;
-                    msg +=$"  当前CPU使用率{target.cpu_rate}% 持续{ConfigModel.rule_config.server_node.time_out}秒超过预警值{ConfigModel.rule_config.server_node.cpu_rate}%";
+                    msg += $"  当前CPU使用率{target.cpu_rate}% 持续{ConfigModel.rule_config.server_node.time_out}秒超过预警值{ConfigModel.rule_config.server_node.cpu_rate}%";
                 }
-                if (ConfigModel.rule_config.server_node.driver_rate > 0 && ConfigModel.rule_config.server_node.driver_rate <= target.driver_rate)
+                if (ConfigModel.rule_config.server_node.disk_rate > 0 && ConfigModel.rule_config.server_node.disk_rate <= target.disk_rate)
                 {
                     is_warning = true;
-                    msg += $"  当前磁盘占用率{target.driver_rate}% 持续{ConfigModel.rule_config.server_node.time_out}秒超过预警值{ConfigModel.rule_config.server_node.driver_rate}%";
+                    msg += $"  当前磁盘占用率{target.disk_rate}% 持续{ConfigModel.rule_config.server_node.time_out}秒超过预警值{ConfigModel.rule_config.server_node.disk_rate}%";
                 }
                 if (ConfigModel.rule_config.server_node.mem_rate > 0 && ConfigModel.rule_config.server_node.mem_rate <= target.mem_rate)
                 {
@@ -57,7 +59,7 @@ namespace ServiceProgram.Common
             if (msg == null)
                 msg = "_";
             sb.Append($"{ConfigModel.rule_config.notice}#");
-            var now= DateTimeUtility.ConvertToTimeStamp(time);
+            var now = DateTimeUtility.ConvertToTimeStamp(time);
             if (is_warning)
             {
                 if (server_time <= 0)
@@ -71,13 +73,15 @@ namespace ServiceProgram.Common
                     {
                         server_time = 0;
                     }
-                    else {
+                    else
+                    {
                         is_warning = false;
                     }
                 }
 
             }
-            else {
+            else
+            {
                 server_time = 0;
             }
 
@@ -85,7 +89,8 @@ namespace ServiceProgram.Common
             {
                 sb.Append("1#");
             }
-            else {
+            else
+            {
                 sb.Append("0#");
             }
 
@@ -105,6 +110,7 @@ namespace ServiceProgram.Common
             sb.Append($"{time.ToString("yyyy-MM-dd HH:mm:ss.ffff")}#");
             sb.Append("target_message_node#");
             sb.Append("kafka#");
+            sb.Append($"_#");
             sb.Append($"{Newtonsoft.Json.JsonConvert.SerializeObject(target)}#");
             bool is_warning = false;
             string msg = null;
@@ -175,6 +181,7 @@ namespace ServiceProgram.Common
                 node_name = target.redis_name;
             }
             sb.Append($"{node_name}#");
+            sb.Append($"_#");
             sb.Append($"{Newtonsoft.Json.JsonConvert.SerializeObject(target)}#");
             bool is_warning = false;
             string msg = null;
@@ -241,18 +248,36 @@ namespace ServiceProgram.Common
             StringBuilder sb = new StringBuilder();
             sb.Append($"{time.ToString("yyyy-MM-dd HH:mm:ss.ffff")}#");
             sb.Append("target_postgres_node#");
-            string node_name = "_";
-            if (string.IsNullOrWhiteSpace(target.pg_name) == false)
-            {
-                node_name = target.pg_name;
-            }
-            sb.Append($"{node_name}#");
-            //sb.Append("_#");
+            sb.Append($"{target.pg_name}#");
+            sb.Append($"{target.database}#");
             sb.Append($"{Newtonsoft.Json.JsonConvert.SerializeObject(target)}#");
             string msg = "-";
+            string is_warning = "0";
             sb.Append($"{ConfigModel.rule_config.notice}#");
 
-            sb.Append("0#");
+            foreach (var info in target.infos)
+            {
+                long tmp = 0;
+                if (pg_total_site.ContainsKey($"{target.pg_name}{target.database}{info.table_name}"))
+                {
+                    tmp = pg_total_site[$"{target.pg_name}{target.database}{info.table_name}"];
+                    pg_total_site[$"{target.pg_name}{target.database}{info.table_name}"] = info.total_size;
+                }
+                else
+                {
+                    pg_total_site.Add($"{target.pg_name}{target.database}{info.table_name}", info.total_size);
+                    tmp = info.total_size;
+                }
+
+                var w1 = info.total_size - tmp;
+                var w2 = UtilHelper.UnitsChange(ConfigModel.rule_config.pg_node.total_size + "mb");
+                if (w1 >= w2)
+                {
+                    is_warning = "1";
+                    msg += $"库：{target.database} 表：{info.table_name} 24小时内数据空间增加{Math.Round(w1 / 1024.00 / 1024.00, 2)}GB 触发预警";
+                }
+            }
+            sb.Append($"{is_warning}#");
             sb.Append($"{msg}#");
             if (ConfigModel.rule_config.is_console)
                 Console.WriteLine(sb.ToString());

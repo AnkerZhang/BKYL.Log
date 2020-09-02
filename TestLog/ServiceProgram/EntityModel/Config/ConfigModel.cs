@@ -29,7 +29,7 @@ namespace ServiceProgram.EntityModel
         /// <summary>
         /// pg数据库配置文件
         /// </summary>
-        public static DataConfigModel data_configs { get; set; }
+        public static List<DataConfigModel> data_configs { get; set; }
         public static RuleConfigModel rule_config { get; set; }
     }
 }

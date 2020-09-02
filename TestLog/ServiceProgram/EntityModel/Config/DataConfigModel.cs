@@ -14,17 +14,17 @@ namespace ServiceProgram.EntityModel
         /// </summary>
         public string pg_name { get; set; }
         /// <summary>
+        /// 数据库ip
+        /// </summary>
+        public string host { get; set; }
+        /// <summary>
         /// 端口
         /// </summary>
         public int port { get; set; }
         /// <summary>
-        /// 数据包名称
+        /// 数据包名称 英文逗号分隔
         /// </summary>
         public string database { get; set; }
-        /// <summary>
-        /// 数据库ip
-        /// </summary>
-        public string host { get; set; }
         /// <summary>
         /// 用户名称
         /// </summary>
@@ -33,14 +33,5 @@ namespace ServiceProgram.EntityModel
         /// 密码
         /// </summary>
         public string pwd { get; set; }
-
-        /// <summary>
-        /// 数据路径
-        /// </summary>
-        public string data_path { get; set; }
-        /// <summary>
-        /// 日志路径
-        /// </summary>
-        public string log_path { get; set; }
     }
 }

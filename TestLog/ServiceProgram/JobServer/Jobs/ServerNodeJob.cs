@@ -16,7 +16,7 @@ namespace ServiceProgram.JobServer.Jobs
     {
         public override string JobName => "ServerNodeJob";
 
-        public override string Cron => "0/5 * * * * ?";
+        public override string Cron => "0 0/10 * * * ?";
 
         protected override void ExcuteJob(IJobExecutionContext context, CancellationTokenSource cancellationSource)
         {
@@ -25,7 +25,7 @@ namespace ServiceProgram.JobServer.Jobs
             ServerTargetHelper.ServerTarget(time, new ServerTargetModel
             {
                 cpu_rate = info.GetCpuRate(),
-                driver_rate = info.GetDriverRate(),
+                disk_rate = info.GetDriverRate(),
                 mem_rate = info.GetMemRate()
             }) ;
         }

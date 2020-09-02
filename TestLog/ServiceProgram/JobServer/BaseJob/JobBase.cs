@@ -1,4 +1,5 @@
-﻿using Quartz;
+﻿using BKYL.Log.LogFactory;
+using Quartz;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -25,7 +26,7 @@ namespace ServiceProgram.JobServer.BaseJob
         /// </summary>
         public virtual int JobTimeout => 30 * 1000;
 
-        public static Bkyl.Log.LogGateway.ILogGateway _log = new Bkyl.Log.LogGateway.Imp.LogGateway();
+
         /// <summary>
         /// 子类重写Cron表达式
         /// http://cron.qqe2.com/
@@ -41,7 +42,7 @@ namespace ServiceProgram.JobServer.BaseJob
             }
             catch (Exception ex)
             {
-                _log.Error(this.GetType().Name + "error:" + ex.Message, ex, true, true);
+                ServiceProgram.Common.UtilHelper.log.Error(this.GetType().Name + "error:" + ex.Message, ex, true, true);
             }
             finally
             {

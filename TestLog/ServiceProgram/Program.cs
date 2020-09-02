@@ -20,8 +20,7 @@ namespace ServiceProgram
         static void Main(string[] args)
         {
             //加载配置文件
-            Bkyl.Log.LogExtension.AddProgramLog();
-
+            UtilHelper.log = BKYL.Log.LogExtension.GetGlobalLog(BKYL.Log.LogFactory.LogEnum.console);
             Console.WriteLine("==========================开始加载配置文件========================");
             var builder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json");
@@ -46,7 +45,7 @@ namespace ServiceProgram
                 }
                 if (arr.Any(a => a == "pg"))
                 {
-                    var pg_config = configuration.GetSection("pg_config").Get<DataConfigModel>();
+                    var pg_config = configuration.GetSection("pg_config").Get<List<DataConfigModel>>();
                     ConfigModel.data_configs = pg_config;
                 }
             }
