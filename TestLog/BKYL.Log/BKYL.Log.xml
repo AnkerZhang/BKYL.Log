@@ -23,6 +23,12 @@
             <param name="size">容量（B）</param>
             <returns>已格式化的容量</returns>
         </member>
+        <member name="M:BKYL.Log.Common.UtilHelper.IsWarning">
+            <summary>
+            预警缓存30分钟
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:BKYL.Log.LogExtension">
             <summary>
             

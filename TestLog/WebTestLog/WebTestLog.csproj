@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BKYL.Log" Version="1.1.0" />
+    <ProjectReference Include="..\BKYL.Log\BKYL.Log.csproj" />
   </ItemGroup>
 
   <ItemGroup>

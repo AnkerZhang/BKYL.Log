@@ -10,6 +10,9 @@ namespace BKYL.Log.Common
     /// </summary>
     public static class UtilHelper
     {
+
+        private static DateTime time = new DateTime();
+
         /// <summary>
         /// 过滤掉换行
         /// </summary>
@@ -41,5 +44,21 @@ namespace BKYL.Log.Common
             return (string.Format("{0} {1}", Math.Round(d, 2), unit[i]));
         }
         #endregion
+
+        /// <summary>
+        /// 预警缓存30分钟
+        /// </summary>
+        /// <returns></returns>
+        public static string IsWarning()
+        {
+            if ((DateTime.Now - time).Minutes > 30)
+            {
+                time = DateTime.Now;
+                return "1";
+            }
+            else {
+                return "0";
+            }
+        }
     }
 }
