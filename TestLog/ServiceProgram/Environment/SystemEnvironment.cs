@@ -1,4 +1,5 @@
 ﻿using CZGL.SystemInfo.Linux;
+using Mono.Unix.Native;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace ServiceProgram.Environment
     public class SystemEnvironment
     {
         private readonly DynamicInfo info;
-        private static readonly PerformanceCounter cpup= new PerformanceCounter("Processor", "% Processor Time", "_Total");
+        private static readonly PerformanceCounter cpup = new PerformanceCounter("Processor", "% Processor Time", "_Total");
 
         public SystemEnvironment()
         {
@@ -71,7 +72,7 @@ namespace ServiceProgram.Environment
             if (IsWindows())
             {
                 AAA:
-                rete =Math.Round(cpup.NextValue(),2);
+                rete = Math.Round(cpup.NextValue(), 2);
                 if (rete <= 0)
                     goto AAA;
 
@@ -94,23 +95,68 @@ namespace ServiceProgram.Environment
         /// <returns></returns>
         public double GetDriverRate()
         {
-            long lsum = 0, ldr = 0;
-            long gb = 1024 * 1024 * 1024;
-
-            foreach (DriveInfo drive in DriveInfo.GetDrives())
+            if (IsWindows() == false)
             {
-                //判断是否是固定磁盘
-                //if (drive.DriveType == DriveType.Fixed)
-                //{
+                var path = "/";
+                string shellPathLine = string.Format("cd {0}", path);
+                string printLine = " awk '{print $2,$3,$4,$5}'";
+                string shellLine = string.Format("df -k {0} |", path) + printLine;
+
+                Process p = new Process();
+                p.StartInfo.FileName = "sh";
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardInput = true;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.RedirectStandardError = true;
+                p.StartInfo.CreateNoWindow = true;
+                p.Start();
+                p.StandardInput.WriteLine(shellPathLine);
+                p.StandardInput.WriteLine(shellLine);
+                p.StandardInput.WriteLine("exit");
+
+                string strResult = p.StandardOutput.ReadToEnd();
+                string[] arr = strResult.Split('\n');
+                if (arr.Length == 0)
+                {
+                    return 0;
+                }
+                string[] resultArray = arr[1].TrimStart().TrimEnd().Split(' ');
+                if (resultArray == null || resultArray.Length == 0)
+                {
+                    return 0;
+                }
+
+                //var TotalSize = Convert.ToInt32(resultArray[0]);
+                //var UsedSize = Convert.ToInt32(resultArray[1]);
+                //var AvailableSize = Convert.ToInt32(resultArray[2]);
+                var Use = resultArray[3];
+                //Console.WriteLine("================================");
+                //Console.WriteLine(string.Format("Linux获取目录：{0},总大小:{1},已用:{2},未用:{3},使用率:{4}", path, TotalSize, UsedSize, AvailableSize, Use));
+                //Console.WriteLine("================================");
+                return Math.Round(Convert.ToDouble(Use.Replace("%", "")), 2);
+            }
+            else
+            {
+
+
+                long lsum = 0, ldr = 0;
+                long gb = 1024 * 1024 * 1024;
+
+                foreach (DriveInfo drive in DriveInfo.GetDrives())
+                {
+                    //判断是否是固定磁盘
+                    //if (drive.DriveType == DriveType.Fixed)
+                    //{
                     lsum += drive.TotalSize / gb;
                     ldr += drive.TotalFreeSpace / gb;
-                //}
+                    //}
+                }
+                if (ldr <= 0)
+                {
+                    return 0;
+                }
+                return Math.Round(ldr * 100.00 / lsum, 2);
             }
-            if (ldr <= 0)
-            {
-                return 0;
-            }
-            return Math.Round(ldr * 100.00 / lsum, 2);
         }
 
     }

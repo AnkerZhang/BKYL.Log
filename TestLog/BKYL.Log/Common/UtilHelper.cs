@@ -51,6 +51,7 @@ namespace BKYL.Log.Common
         /// <returns></returns>
         public static string IsWarning()
         {
+            return "1";
             if ((DateTime.Now - time).Minutes > 30)
             {
                 time = DateTime.Now;

@@ -17,7 +17,7 @@ namespace ServiceProgram.JobServer.Jobs
     {
         public override string JobName => "MessageJob";
 
-        public override string Cron => "0 0/10 * * * ?";
+        public override string Cron => "0 0/1 * * * ?";
 
         protected override void ExcuteJob(IJobExecutionContext context, CancellationTokenSource cancellationSource)
         {

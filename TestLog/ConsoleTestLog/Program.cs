@@ -8,7 +8,7 @@ namespace ConsoleTestLog
         static void Main(string[] args)
         {
             //获取全局日志对象 该方法全局只需要获取一次即可
-            var _log= LogExtension.GetGlobalLog(BKYL.Log.LogFactory.LogEnum.console);
+            var _log = LogExtension.GetGlobalLog(BKYL.Log.LogFactory.LogEnum.console);
 
             #region 使用ILogGateway
 

@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using ServiceProgram.Common;
 using ServiceProgram.JobServer;
 using ServiceProgram.EntityModel.RuleTarget;
+using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace ServiceProgram
 {
@@ -47,7 +49,11 @@ namespace ServiceProgram
             ConfigModel.rule_config = rule_config;
             InitServiceJob job = new InitServiceJob();
             _ = job.Init().Result;
-            Console.ReadLine();
+
+            while (true)
+            {
+                Thread.Sleep(1000*60*60*24);
+            }
 
         }
     }

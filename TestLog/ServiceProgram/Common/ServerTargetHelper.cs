@@ -187,7 +187,7 @@ namespace ServiceProgram.Common
             string msg = null;
             if (ConfigModel.rule_config != null && ConfigModel.rule_config.server_node != null)
             {
-                if (ConfigModel.rule_config.redis_node.mem_rate > 0 && ConfigModel.rule_config.redis_node.mem_rate <= target.mem_rate)
+                if (ConfigModel.rule_config.redis_node.mem_rate > 0 && ConfigModel.rule_config.redis_node.mem_rate <= target.mem_rate && target.max_bytes_val > 0)
                 {
                     is_warning = true;
                     msg += $"  当前Redis内存使用占比{target.mem_rate}% 持续{ConfigModel.rule_config.redis_node.time_out}秒已超过预警值{ConfigModel.rule_config.redis_node.mem_rate}%";

@@ -25,6 +25,8 @@ namespace ServiceProgram.EntityModel.Target
         {
             get
             {
+                if (max_bytes_val <= 0)
+                    return 0;
                 return Math.Round(double.Parse(used_bytes_val.ToString()) / double.Parse(max_bytes_val.ToString()) * 100.00, 2);
             }
         }

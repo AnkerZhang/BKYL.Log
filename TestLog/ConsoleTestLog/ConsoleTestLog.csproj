@@ -18,6 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BKYL.Log" Version="1.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BKYL.Log\BKYL.Log.csproj" />
   </ItemGroup>
 
