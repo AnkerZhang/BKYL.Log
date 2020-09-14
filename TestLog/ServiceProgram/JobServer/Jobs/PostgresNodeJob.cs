@@ -20,7 +20,7 @@ namespace ServiceProgram.JobServer.Jobs
     {
         public override string JobName => "PostgresNodeJob";
 
-        public override string Cron => "0 0 0/1 * * ?";
+        public override string Cron => "0 0/10 * * * ?";
 
         protected override void ExcuteJob(IJobExecutionContext context, CancellationTokenSource cancellationSource)
         {
