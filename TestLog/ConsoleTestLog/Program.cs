@@ -17,16 +17,16 @@ namespace ConsoleTestLog
 
             #region 注释
 
-            //_log.Error("这个出错了", new Exception("我是一个错误信息"), true, true);
-            //try
-            //{
-            //    int i = 0;
-            //    i = i / i;
-            //}
-            //catch (Exception ex)
-            //{
-            //    _log.Error(ex.Message, ex);
-            //}
+            _log.Error("这个出错了", new Exception("我是一个错误信息"), true, true);
+            try
+            {
+                int i = 0;
+                i = i / i;
+            }
+            catch (Exception ex)
+            {
+                _log.Error(ex.Message, ex);
+            }
 
             //还有Dbug、Error、Fatal、Warn方法 使用方法一样
             //采集的日志格式如下
@@ -63,11 +63,11 @@ namespace ConsoleTestLog
 
             //#endregion
 
-            for (int i = 0; i < 10; i++)
-            {
-                Thread.Sleep(1);
-                DoComplexCalculation(i);
-            }
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    Thread.Sleep(1);
+            //    DoComplexCalculation(i);
+            //}
 
             Console.ReadLine();
 

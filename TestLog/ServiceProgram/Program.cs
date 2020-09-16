@@ -8,51 +8,40 @@ using ServiceProgram.JobServer;
 using ServiceProgram.EntityModel.RuleTarget;
 using System.Runtime.InteropServices;
 using System.Threading;
+using Npgsql;
+using Dapper;
+using ServiceProgram.EntityModel.Config;
+using ServiceProgram.EntityModel.Tables;
 
 namespace ServiceProgram
 {
     class Program
     {
+        public static DataAppConfig appConfig;
         static void Main(string[] args)
         {
+
+            var worker = ServerTargetHelper.LoadInformation();
+            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(worker));
+            return;
             //加载配置文件
             UtilHelper.log = BKYL.Log.LogExtension.GetGlobalLog(BKYL.Log.LogFactory.LogEnum.console);
-            Console.WriteLine("==========================开始加载配置文件========================");
             var builder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json");
             var configuration = builder.Build();
-            ConfigModel.action = configuration["action"].ToString();
-            if (string.IsNullOrWhiteSpace(ConfigModel.action) == false)
-            {
-                var arr = ConfigModel.action.Split(",");
-                if (arr.Any(a => a == "server"))
-                {
-                    ConfigModel.node_name = configuration["nodel_name"].ToString();
-                }
-                if (arr.Any(a => a == "message"))
-                {
-                    var msg_config = configuration.GetSection("msg_config").Get<MessageConfigModel>();
-                    ConfigModel.msg_config = msg_config;
-                }
-                if (arr.Any(a => a == "redis"))
-                {
-                    var redis_configs = configuration.GetSection("redis_config").Get<List<RedisConfigModel>>();
-                    ConfigModel.redis_configs = redis_configs;
-                }
-                if (arr.Any(a => a == "pg"))
-                {
-                    var pg_config = configuration.GetSection("pg_config").Get<List<DataConfigModel>>();
-                    ConfigModel.data_configs = pg_config;
-                }
-            }
-            var rule_config = configuration.GetSection("rule_config").Get<RuleConfigModel>();
-            ConfigModel.rule_config = rule_config;
+            appConfig = configuration.GetSection("data_config").Get<DataAppConfig>();
+            ServerTargetHelper.SaveSerWorker();
+
+            Console.WriteLine("==========================开始加载配置文件========================");
+            ServerTargetHelper.DataConfig();
+            Console.WriteLine("==========================配置加载完成========================");
             InitServiceJob job = new InitServiceJob();
+            Console.WriteLine("==========================Job加载========================");
             _ = job.Init().Result;
 
             while (true)
             {
-                Thread.Sleep(1000*60*60*24);
+                Thread.Sleep(1000 * 60 * 60 * 24);
             }
 
         }

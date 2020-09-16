@@ -2,6 +2,7 @@
 using Npgsql;
 using Quartz;
 using ServiceProgram.Common;
+using ServiceProgram.EntityModel;
 using ServiceProgram.Environment;
 using System;
 using System.Collections.Generic;
@@ -21,15 +22,18 @@ namespace ServiceProgram.JobServer.Jobs
 
         protected override void ExcuteJob(IJobExecutionContext context, CancellationTokenSource cancellationSource)
         {
-            var time = DateTime.Now;
-            var total = 0;
-            using (var conn = new NpgsqlConnection($"PORT={EntityModel.ConfigModel.msg_config.port};DATABASE={EntityModel.ConfigModel.msg_config.database};HOST={EntityModel.ConfigModel.msg_config.host};PASSWORD={EntityModel.ConfigModel.msg_config.pwd};USER ID={EntityModel.ConfigModel.msg_config.user_id}"))
+            if (ConfigModel.msg_config != null)
             {
-                conn.Open();
-                total = conn.ExecuteScalar<int>($"select count(0) from {EntityModel.ConfigModel.msg_config.table_name}");
-                conn.Close();
+                var time = DateTime.Now;
+                var total = 0;
+                using (var conn = new NpgsqlConnection($"PORT={EntityModel.ConfigModel.msg_config.port};DATABASE={EntityModel.ConfigModel.msg_config.database};HOST={EntityModel.ConfigModel.msg_config.host};PASSWORD={EntityModel.ConfigModel.msg_config.pwd};USER ID={EntityModel.ConfigModel.msg_config.user_id}"))
+                {
+                    conn.Open();
+                    total = conn.ExecuteScalar<int>($"select count(0) from {EntityModel.ConfigModel.msg_config.table_name}");
+                    conn.Close();
+                }
+                ServerTargetHelper.MessageTarget(time, new EntityModel.Target.MessageTargetModel { task_count = total });
             }
-            ServerTargetHelper.MessageTarget(time, new EntityModel.Target.MessageTargetModel { task_count = total });
         }
     }
 }

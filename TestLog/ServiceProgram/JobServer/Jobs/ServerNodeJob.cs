@@ -1,5 +1,6 @@
 ﻿using Quartz;
 using ServiceProgram.Common;
+using ServiceProgram.EntityModel;
 using ServiceProgram.EntityModel.Target;
 using ServiceProgram.Environment;
 using System;
@@ -20,14 +21,17 @@ namespace ServiceProgram.JobServer.Jobs
 
         protected override void ExcuteJob(IJobExecutionContext context, CancellationTokenSource cancellationSource)
         {
-            var time = DateTime.Now;
-            SystemEnvironment info = new SystemEnvironment();
-            ServerTargetHelper.ServerTarget(time, new ServerTargetModel
+            if (string.IsNullOrWhiteSpace(ConfigModel.node_name) == false)
             {
-                cpu_rate = info.GetCpuRate(),
-                disk_rate = info.GetDriverRate(),
-                mem_rate = info.GetMemRate()
-            }) ;
+                var time = DateTime.Now;
+                SystemEnvironment info = new SystemEnvironment();
+                ServerTargetHelper.ServerTarget(time, new ServerTargetModel
+                {
+                    cpu_rate = info.GetCpuRate(),
+                    disk_rate = info.GetDriverRate(),
+                    mem_rate = info.GetMemRate()
+                });
+            }
         }
     }
 }

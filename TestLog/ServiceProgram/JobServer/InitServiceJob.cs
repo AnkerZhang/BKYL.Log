@@ -27,28 +27,6 @@ namespace ServiceProgram.JobServer
                 string job_cron = baseJob.Cron;
                 string job_name = baseJob.JobName;
 
-                if (string.IsNullOrWhiteSpace(EntityModel.ConfigModel.node_name))
-                {
-                    if (job_name == "ServerNodeJob")
-                        continue;
-                }
-                if (EntityModel.ConfigModel.redis_configs==null)
-                {
-                    if (job_name == "RedisNodeJob")
-                        continue;
-                }
-                if (EntityModel.ConfigModel.msg_config==null)
-                {
-                    if (job_name == "MessageJob")
-                        continue;
-                }
-                if (EntityModel.ConfigModel.data_configs==null)
-                {
-                    if (job_name == "PostgresNodeJob")
-                        continue;
-                }
-
-
                 try
                 {
 

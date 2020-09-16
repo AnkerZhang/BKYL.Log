@@ -64,10 +64,11 @@ namespace ServiceProgram.Common
                 strSite = strSite.Replace("b", "");
                 if (long.TryParse(strSite, out data))
                 {
-                    data = data /1024;
+                    data = data / 1024;
                 }
             }
             return data;
         }
+
     }
 }
