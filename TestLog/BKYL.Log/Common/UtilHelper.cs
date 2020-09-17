@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace BKYL.Log.Common
 {
@@ -10,6 +11,7 @@ namespace BKYL.Log.Common
     /// </summary>
     public static class UtilHelper
     {
+        private static MemoryCache cache = new MemoryCache(new MemoryCacheOptions());
 
         private static DateTime time = new DateTime();
 
@@ -49,17 +51,28 @@ namespace BKYL.Log.Common
         /// 预警缓存30分钟
         /// </summary>
         /// <returns></returns>
-        public static string IsWarning()
+        public static string IsWarning(string key = null)
         {
-            return "1";
-            if ((DateTime.Now - time).Minutes > 30)
+            if (string.IsNullOrWhiteSpace(key))
             {
-                time = DateTime.Now;
-                return "1";
+                if ((DateTime.Now - time).Minutes > 30)
+                {
+                    time = DateTime.Now;
+                    return "1";
+                }
             }
-            else {
-                return "0";
+            else
+            {
+                var data = cache.Get<string>(key);
+                if (string.IsNullOrWhiteSpace(data))
+                {
+                    cache.Set(key, "1", new TimeSpan(0, 30, 0));
+                    return "1";
+                }
+                
             }
+            return "0";
+
         }
     }
 }

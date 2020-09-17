@@ -23,7 +23,7 @@
             <param name="size">容量（B）</param>
             <returns>已格式化的容量</returns>
         </member>
-        <member name="M:BKYL.Log.Common.UtilHelper.IsWarning">
+        <member name="M:BKYL.Log.Common.UtilHelper.IsWarning(System.String)">
             <summary>
             预警缓存30分钟
             </summary>
@@ -355,6 +355,26 @@
         <member name="F:BKYL.Log.LogFactory.LogEnum.console">
             <summary>
             控制台日志
+            </summary>
+        </member>
+        <member name="T:BKYL.Log.NlogTarget.KafkaTarget">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:BKYL.Log.NlogTarget.ProducerConfig">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BKYL.Log.NlogTarget.ProducerConfig.Key">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BKYL.Log.NlogTarget.ProducerConfig.value">
+            <summary>
+            
             </summary>
         </member>
     </members>

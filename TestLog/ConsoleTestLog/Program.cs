@@ -1,5 +1,8 @@
 ﻿using BKYL.Log;
 using BKYL.Log.LogFactory;
+using BKYL.Log.NlogTarget;
+using NLog;
+using NLog.Config;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -12,12 +15,38 @@ namespace ConsoleTestLog
         private static ILog _log;
         static void Main(string[] args)
         {
+            ConfigurationItemFactory.Default.Targets.RegisterDefinition("kafka", typeof(KafkaTarget));
+
+            LogManager.ReconfigExistingLoggers();
+            Logger logger = LogManager.GetCurrentClassLogger();
+
+            MappedDiagnosticsContext.Set("item1", "haha");
+            for (int i = 0; i < 10; i++)
+            {
+                logger.Error(new NotImplementedException("error"), "error");
+                Console.WriteLine("sended");
+            }
+
+            Console.ReadLine();
+            return;
+
+
+
+
+
+
+
+
+
+
             //获取全局日志对象 该方法全局只需要获取一次即可
             _log = LogExtension.GetGlobalLog(BKYL.Log.LogFactory.LogEnum.console);
 
             #region 注释
 
             _log.Error("这个出错了", new Exception("我是一个错误信息"), true, true);
+            _log.Error("这个出错了", new Exception("我是一个错误信息22222"), true, true);
+
             try
             {
                 int i = 0;
@@ -25,7 +54,8 @@ namespace ConsoleTestLog
             }
             catch (Exception ex)
             {
-                _log.Error(ex.Message, ex);
+                _log.Error(ex.Message, ex, true, true);
+                _log.Error(ex.Message, ex, true, true);
             }
 
             //还有Dbug、Error、Fatal、Warn方法 使用方法一样

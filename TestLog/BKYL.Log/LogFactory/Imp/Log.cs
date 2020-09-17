@@ -42,7 +42,7 @@ namespace BKYL.Log.LogFactory.Imp
             }
             if (is_warning)
             {
-                msg.Append($"#{Common.UtilHelper.IsWarning()}");
+                msg.Append($"#{Common.UtilHelper.IsWarning(message)}");
             }
             else
             {
@@ -84,7 +84,7 @@ namespace BKYL.Log.LogFactory.Imp
             }
             if (is_warning)
             {
-                msg.Append($"#{Common.UtilHelper.IsWarning()}");
+                msg.Append($"#{Common.UtilHelper.IsWarning(message)}");
             }
             else
             {
@@ -118,7 +118,7 @@ namespace BKYL.Log.LogFactory.Imp
             }
             if (is_warning)
             {
-                msg.Append($"#{Common.UtilHelper.IsWarning()}");
+                msg.Append($"#{Common.UtilHelper.IsWarning(message)}");
             }
             else
             {
@@ -161,7 +161,7 @@ namespace BKYL.Log.LogFactory.Imp
             }
             if (is_warning)
             {
-                msg.Append($"#{Common.UtilHelper.IsWarning()}");
+                msg.Append($"#{Common.UtilHelper.IsWarning(message)}");
             }
             else
             {
@@ -195,7 +195,7 @@ namespace BKYL.Log.LogFactory.Imp
             }
             if (is_warning)
             {
-                msg.Append($"#{Common.UtilHelper.IsWarning()}");
+                msg.Append($"#{Common.UtilHelper.IsWarning(message)}");
             }
             else
             {
@@ -238,7 +238,7 @@ namespace BKYL.Log.LogFactory.Imp
             }
             if (is_warning)
             {
-                msg.Append($"#{Common.UtilHelper.IsWarning()}");
+                msg.Append($"#{Common.UtilHelper.IsWarning(message)}");
             }
             else
             {
@@ -273,7 +273,7 @@ namespace BKYL.Log.LogFactory.Imp
             }
             if (is_warning)
             {
-                msg.Append($"#{Common.UtilHelper.IsWarning()}");
+                msg.Append($"#{Common.UtilHelper.IsWarning(message)}");
             }
             else
             {
@@ -315,7 +315,7 @@ namespace BKYL.Log.LogFactory.Imp
             }
             if (is_warning)
             {
-                msg.Append($"#{Common.UtilHelper.IsWarning()}");
+                msg.Append($"#{Common.UtilHelper.IsWarning(message)}");
             }
             else
             {
@@ -349,7 +349,7 @@ namespace BKYL.Log.LogFactory.Imp
             }
             if (is_warning)
             {
-                msg.Append($"#{Common.UtilHelper.IsWarning()}");
+                msg.Append($"#{Common.UtilHelper.IsWarning(message)}");
             }
             else
             {
@@ -391,7 +391,7 @@ namespace BKYL.Log.LogFactory.Imp
             }
             if (is_warning)
             {
-                msg.Append($"#{Common.UtilHelper.IsWarning()}");
+                msg.Append($"#{Common.UtilHelper.IsWarning(message)}");
             }
             else
             {

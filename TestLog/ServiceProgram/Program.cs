@@ -23,7 +23,6 @@ namespace ServiceProgram
 
             var worker = ServerTargetHelper.LoadInformation();
             Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(worker));
-            return;
             //加载配置文件
             UtilHelper.log = BKYL.Log.LogExtension.GetGlobalLog(BKYL.Log.LogFactory.LogEnum.console);
             var builder = new ConfigurationBuilder()
