@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="nlog.config" />
+    <None Remove="NLog.config" />
   </ItemGroup>
 
   <ItemGroup>

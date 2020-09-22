@@ -357,25 +357,5 @@
             控制台日志
             </summary>
         </member>
-        <member name="T:BKYL.Log.NlogTarget.KafkaTarget">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:BKYL.Log.NlogTarget.ProducerConfig">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:BKYL.Log.NlogTarget.ProducerConfig.Key">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:BKYL.Log.NlogTarget.ProducerConfig.value">
-            <summary>
-            
-            </summary>
-        </member>
     </members>
 </doc>
